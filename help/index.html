@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html>
+<head lang="en">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>PrintPress WordPress Plugin - Documentation</title>
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css"
+          media="screen, projection">
+    <style type="text/css" media="screen">
+        p, table, hr, .box {
+            margin-bottom: 25px;
+        }
+
+        .box p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+
+<body>
+<div class="container">
+
+<h3 class="center alt">&ldquo;PrintPress&rdquo; Documentation by &ldquo;Abid Omar&rdquo; v1.0</h3>
+
+<hr>
+
+<h1 class="center">&ldquo;PrintPress&rdquo;</h1>
+
+<div class="borderTop">
+    <div class="span-6 colborder info prepend-1">
+        <p class="prepend-top">
+            <strong>
+                Created: 19/04/2013<br>
+                By: Abid Omar<br>
+                Email: <a href="mailto:youremail@yourdomain.com">contact@omarabid.com</a>
+            </strong>
+        </p>
+    </div>
+    <!-- end div .span-6 -->
+
+    <div class="span-12 last">
+        <p class="prepend-top append-0">Thank you for picking PrintPress. A premium WordPress plug-in to creates a
+            printer-friendly version of your WordPress blog posts and pages.
+            blog </p>
+    </div>
+</div>
+<!-- end div .borderTop -->
+
+<hr>
+
+<h2 id="toc" class="alt">Table of Contents</h2>
+<ol class="alpha">
+    <li><a href="#intro">Introduction</a></li>
+    <li><a href="#settings">Plug-in Settings</a></li>
+    <li><a href="#printpage">Print Page Template</a></li>
+    <li><a href="#csscomment">CSS comment Template</a></li>
+    <li><a href="#button">Button Template</a></li>
+    <li><a href="#credits">Sources and Credits</a></li>
+</ol>
+
+<hr>
+
+<h3 id="intro"><strong>A) Introduction</strong> - <a href="#toc">top</a></h3>
+
+<p>PrintPress creates a printer-friendly version of your WordPress blog posts and pages. PrintPress automatically
+    detects the permalinks structure of your blog and apply the new rewrite rules. The plug-in has a set of features to
+    customize the print page output. The print page is fully customizable through the "Edit Template" page.</p>
+<h4>Print Page URL</h4>
+
+<p>The print page URL depends on your permalink structure.</p>
+<ul>
+    <li><strong>Default structure</strong>: PrintPress will add a "print" query variable to your URL; for example if
+        your URL is "http://myblog.com/?p=5", the print page URL is "http://myblog.com/?p=5&print"
+    </li>
+    <li><strong>Smart Permalinks</strong>: If you are using Smart Permalinks (http://myblog.com/blog_post/), PrintPress
+        will add a "/print" to the end of the URL. (http://myblog.com/blog_post/print). The smart permalink option must
+        be checked to enable smart permalinks.
+    </li>
+</ul>
+<h4>Compatibility</h4>
+
+<p>PrintPress works on all WordPress pages, however, you should only use it for blog posts and blog pages. PrintPress
+    will try to find out if the requested page has any content and comments, and will try to format it. In case you have
+    a custom page with valid content and comments, PrintPress should parse it successfully.</p>
+
+<p>If you change the rewrite rules (or another plug-in do), PrintPress may stop functioning. A refresh to the rewrite
+    rules is required. You can deactivate/activate the plug-in to refresh the rules, but a simple solution was made: The
+    refresh button in the settings page. It'll refresh the rules without needing to deactivate/activate the plug-in.</p>
+
+<hr>
+
+<h3 id="settings"><strong>B) Plug-in Settings</strong> - <a href="#toc">top</a></h3>
+
+<p>The plug-in has several settings which can changed from the settings panel for the plug-in.</p>
+
+<h3>General Settings</h3>
+<ul>
+    <li><strong>Include Images and Video</strong>: Check this to include images
+        videos in the print page
+    </li>
+    <li><strong>Include Comments</strong>: Include the post comments to be
+        printed with the blog post.
+    </li>
+    <li><strong>Insert Print button in posts</strong>: Insert a Print Image
+        button in the right position of every post.
+    </li>
+    <li><strong>Wrap paragraph in P element</strong>: Automatically detect
+        paragraphs and wrap them in a <p></p> element. Don't check this if you
+        are manually formatting your post.
+    </li>
+    <li><strong>Process Shortcodes</strong>: Convert Shortcodes in the print page.</li>
+    <li><strong>Date format</strong>: Customize the post date format.</li>
+</ul>
+<h3>Rewrite Settings</h3>
+<ul>
+    <li><strong>Enable Smart Permalink</strong>: Enable the /print endpoint instead of query strings</li>
+    <li><strong>Refresh Button</strong>: Refresh the rewrite rules.</li>
+</ul>
+<hr>
+
+<h3 id="printpage"><strong>C) Print Page Template</strong> - <a href="#toc">top</a></h3>
+
+<p>The Print Page is fully customizable through the "Edit template" page. You can edit the HTML code for the Print Page,
+    add additional CSS code, edit the comment HTML code, and also customize its appearence. The following section will
+    help you understand how the template engine works, and how you can fully customize the template.</p>
+
+<h4>The template</h4>
+
+<p>
+    The Print Page template is a single HTML file. The content of this file is editable from the "Edit Template" Page,
+    "Post Template" tab, and HTML Code text area.
+</p>
+
+<strong>Default Template HTML Code</strong>
+
+<pre>
+&lt;!doctype html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;link rel="stylesheet" type="text/css" href="{{@plugin_path}}css/reset.css" /&gt;
+        &lt;link rel="stylesheet" type="text/css" href="{{@plugin_path}}css/style.css" /&gt;
+        &lt;style type="text/css"&gt;
+          {{@css}}
+        &lt;/style&gt;
+    &lt;/head&gt;
+    
+    &lt;body&gt;
+        &lt;div id="header_ad"&gt;
+            &lt;img src="ad.png"/&gt;
+        &lt;/div&gt;
+        &lt;div id="container"&gt;
+            &lt;div id="header_article"&gt;
+                &lt;h1&gt;{{@title}}&lt;/h1&gt;
+                &lt;div id="info"&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;span class="bold"&gt;Author: &lt;/span&gt; {{@author_firstname}} {{@author_lastname}}&lt;/li&gt;
+                        &lt;li&gt;&lt;span class="bold"&gt;Published: &lt;/span&gt; {{@date}}&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;div class="clear"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div id="content"&gt;
+                {{@content}}
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id="comments"&gt;
+        &lt;span id="comments-count"&gt;Comments ({{@comment_count}})&lt;/span&gt;
+          {{@comments}}
+        &lt;/div&gt;
+        &lt;div id="footer"&gt;
+            &lt;!-- Custom Footer --&gt;
+            &lt;p&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>You must know HTML and CSS, otherwise, you risk breaking the template. The template is using two CSS files
+    "reset.css" and "style.css", which both of them can be found inside the CSS folder of the plug-in directory.
+</p>
+
+<h4>Additional CSS code</h4>
+
+<p>If you want to add few CSS rules, and not mess with the original CSS files, the CSS text area is for you. You can add
+    CSS rules and they'll be automatically added to your page template. By default, it's empty.
+</p>
+
+<h4>Variables</h4>
+
+<p>
+    When the Print Page URL is called, PrintPress will replace variables content with the related blog post or page. You
+    can remove variables that you don't want to display or change their positions in your template.
+</p>
+
+<p>
+    A variable is detect with the following pattern: {{@variable}}
+</p>
+
+<strong>Post Template variables</strong>
+
+<ul>
+    <li><strong>@plugin_path</strong>: Returns the full URL of the PrintPress plug-in
+    </li>
+    <li><strong>@css</strong>: Returns the additional CSS code.
+    </li>
+    <li><strong>@title</strong>: Returns the blog post or page title.
+    </li>
+    <li><strong>@author</strong>: Returns the blog post or page author name.
+    </li>
+    <li><strong>@author_firstname</strong>: Returns the blog post or page author first name.
+    </li>
+    <li><strong>@author_lastname</strong>: Returns the blog post or page author last name.
+    </li>
+    <li><strong>@author</strong>: Returns the blog post or page author name.
+    </li>
+    <li><strong>@date</strong>: Returns the publish date of the post or the page. The date format can be edited from the
+        settings page.
+    </li>
+    <li><strong>@content</strong>: Returns the body of the blog post or page.
+    </li>
+    <li><strong>@comment_count</strong>: Returns the comment count of the blog post or page.
+    </li>
+    <li><strong>@comments</strong>: Returns the formatted blog post or page comments.
+    </li>
+    <li><strong>@permalink</strong>: Returns the blog post or page full URL.
+    </li>
+</ul>
+<hr>
+
+<h3 id="csscomment"><strong>D) CSS comment template</strong> - <a href="#toc">top</a></h3>
+
+<h4>The comment template</h4>
+
+<p>
+    A blog post might have one or many comments; or may be no comments at all. To make customizing the comment HTML code
+    and style possible, PrintPress seperated it. The comment HTML code will be applied for each single comment. The
+    additional CSS rules in the Post Template tab does also apply for the comment HTML code.
+</p>
+
+<strong>Default Comment HTML Code</strong>
+
+<pre>
+&lt;div class="comment"&gt;
+    &lt;div class="comment-author"&gt;
+      {{@gravatar}}
+      &lt;cite&gt;{{@author}}&lt;/cite&gt;
+      &lt;span&gt;Says:&lt;/span&gt;
+      &lt;div class="comment-meta"&gt;
+        &lt;span class="date"&gt;{{@date}}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p&gt;{{@comment}}&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+
+<strong>Comment Options</strong>
+
+<p>The comment gravatar and data format can be customized.</p>
+
+<ul>
+    <li><strong>Display Gravatar</strong>: Makes the gravatar variable return
+        a gravatar picture.
+    </li>
+    <li><strong>Gravatar Size</strong>: Specify the gravatar thumbnail size.
+    </li>
+    <li><strong>Date Format</strong>: Customize the comment date format.
+    </li>
+</ul>
+
+<h4>Comment Template Variables</h4>
+
+<ul>
+    <li><strong>@gravatar</strong>: Returns the gravatar Image. If gravatar is disabled, then the return will be null.
+    </li>
+    <li><strong>@author</strong>: Returns the comment author name.
+    </li>
+    <li><strong>@date</strong>: Returns the comment publish date. The date format can be customized from the comments
+        options.
+    </li>
+    <li><strong>@comment</strong>: Returns the comment content.
+    </li>
+</ul>
+<hr>
+
+<h3 id="button"><strong>E) Button Template</strong> - <a href="#toc">top</a></h3>
+
+<h3>Inserting the button</h3>
+
+<p>There are two possible ways of inserting the print button:</p>
+
+<ul>
+    <li><strong>Inside the blog post</strong> PrintPress can insert the button inside the blog post. The button
+        is inserted in the top. There is little control in where it's inserted but this is the easiest method
+    </li>
+    <li><strong>Shortcode</strong> You can insert the button using the shortcode provided by PrintPress</li>
+</ul>
+<strong>Usage inside a blog post</strong>
+<pre>
+    [printpress_button]
+</pre>
+<strong>Usage with PHP</strong>
+<pre>
+    &lt;?php
+        echo do_shortcode('[printpress_button]');
+    ?&gt;
+</pre>
+
+<h3>The button template</h3>
+
+<p>You can change the generated HTML code for the button. The default generated HTML code include a simple icon which
+    links to print page. The print page link is generated by PrintPress.</p>
+
+<strong>Default Button HTML</strong>
+
+<pre>
+&lt;a href="{{@print_url}}"&gt;
+    &lt;img style="float:right; padding:10px;" src="{{@print_icon_url}}" /&gt;
+&lt;/a&gt;
+</pre>
+
+<strong>Button variables</strong>
+
+<ul>
+    <li><strong>@print_url</strong>: The Print page URL.</li>
+    <li><strong>@print_icon_url</strong>: An icon that PrintPress uses.</li>
+</ul>
+
+<hr>
+<h3 id="credits"><strong>F) Sources and Credits</strong> - <a href="#toc">top</a></h3>
+
+<p>I've used the following images, icons or other files as listed.
+
+<ul>
+    <li>Plug-in icon from <a href="http://robert.szczepanek.pl/gis-icons-0.1/">GIS icon theme</a>.</li>
+</ul>
+
+<hr>
+
+<p></p>
+
+<p class="append-bottom alt large"><strong>Abid Omar</strong></p>
+
+<p><a href="#toc">Go To Table of Contents</a></p>
+
+<hr class="space">
+</div>
+<!-- end div .container -->
+</body>
+</html>
