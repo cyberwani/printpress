@@ -27,6 +27,18 @@ PrintPress solves this problem by generating a clean and text-only version of yo
 6. Shortcode and widget to display the print button.
 7. Supports smart permalink format (http://site.com/blog-post/print)
 
+= Premium Version =
+
+PrintPress has also a [premium version](http://codecanyon.net/item/printpress-wordpress-print-plugin/604695?ref=omarabid). In the paid
+version, you can change the print page, comments, and print button templates and CSS code.
+
+The paid version also comes with priority and private support.
+
+= Github =
+
+PrintPress development and support is maintained in Github. Please check the [PrintPress repository](https://github.com/omarabid/printpress)
+if you want to contribute or open a support ticket.
+
 == Installation ==
 
 1. Upload the plugin folder to the `/wp-content/plugins/` directory
