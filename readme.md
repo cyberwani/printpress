@@ -18,7 +18,7 @@ PrintPress solves this problem by generating a clean and text-only version of yo
 
 # Premium Features
 
-PrintPress has also a [premium version](http://codecanyon.net/item/adpress-wordpress-ad-manager/1510785). In the paid
+PrintPress has also a [premium version](http://codecanyon.net/item/adpress-wordpress-ad-manager/1510785?ref=omarabid). In the paid
 version, you can change the print page, comments, and print button templates and CSS code.
 
 The paid version also comes with priority and private support.
