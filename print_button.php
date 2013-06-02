@@ -33,8 +33,18 @@ if (!class_exists('wp_pp_button')) {
             $settings = get_option('printpress_settings');
             // Display a print button
             if (isset($settings['print_button'])) {
-                add_filter('the_content', 'wp_pp_button::print_button');
+                add_filter('the_content', 'wp_pp_button::insert_button_filter');
             }
+        }
+
+        /**
+         * @param $content
+         * @return mixed
+         */
+        static function insert_button_filter($content)
+        {
+            $content = self::print_button() . $content;
+            return $content;
         }
 
         /**

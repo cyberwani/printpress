@@ -3,7 +3,7 @@
  * PrintPress - Generates a printable version of your WordPress posts and pages.
  *
  * @author Abid Omar
- * @version 1.0
+ * @version 1.1
  * @package Main
  */
 /*
@@ -12,7 +12,7 @@
   Description: Generates a printable version of your WordPress posts and pages. (Free Version)
   Author: Abid Omar
   Author URI: http://omarabid.com
-  Version: 1.0
+  Version: 1.1
   Text Domain: wp-pp
   License: GPLv3
  */
@@ -34,7 +34,7 @@ if (!class_exists('wp_pp')) {
          *
          * @var string
          */
-        public $version = "1.0";
+        public $version = "1.1";
 
         /**
          * The minimal required WordPress version for this plug-in to function
@@ -204,6 +204,11 @@ You can add here additional CSS rules, or overwrite the existing ones
             // 6. Actions
             //
             add_action('plugins_loaded', array(&$this, 'start'));
+
+            //
+            // 7. Tracking
+            //
+            add_action('admin_init', array(&$this, 'tracking'));
         }
 
         /**
@@ -335,6 +340,12 @@ You can add here additional CSS rules, or overwrite the existing ones
 
         }
 
+        /**
+         * Return the Print Button Content
+         *
+         * @param $content
+         * @return string
+         */
         public function print_button($content)
         {
             global $post;
@@ -350,6 +361,68 @@ You can add here additional CSS rules, or overwrite the existing ones
 </a>
 ';
             return $print_button . $content;
+        }
+
+        /**
+         * Usage Tracking code
+         */
+        public function tracking()
+        {
+
+            // PressTrends Account API Key
+            $api_key = 'c1le7evp66kcn23g12rn9px0iuwchgysu13j';
+            $auth = 'kmi2iyfxiyttsewiquzzn4c7s1loxrbyf';
+
+            // Start of Metrics
+            global $wpdb;
+            $data = get_transient('presstrends_cache_data');
+            if (!$data || $data == '') {
+                $api_base = 'http://api.presstrends.io/index.php/api/pluginsites/update/auth/';
+                $url = $api_base . $auth . '/api/' . $api_key . '/';
+
+                $count_posts = wp_count_posts();
+                $count_pages = wp_count_posts('page');
+                $comments_count = wp_count_comments();
+
+                // wp_get_theme was introduced in 3.4, for compatibility with older versions, let's do a workaround for now.
+                if (function_exists('wp_get_theme')) {
+                    $theme_data = wp_get_theme();
+                    $theme_name = urlencode($theme_data->Name);
+                } else {
+                    $theme_data = get_theme_data(get_stylesheet_directory() . '/style.css');
+                    $theme_name = $theme_data['Name'];
+                }
+
+                $plugin_name = '&';
+                foreach (get_plugins() as $plugin_info) {
+                    $plugin_name .= $plugin_info['Name'] . '&';
+                }
+                // CHANGE __FILE__ PATH IF LOCATED OUTSIDE MAIN PLUGIN FILE
+                $plugin_data = get_plugin_data(__FILE__);
+                $posts_with_comments = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->posts WHERE post_type='post' AND comment_count > 0");
+                $data = array(
+                    'url' => stripslashes(str_replace(array('http://', '/', ':'), '', site_url())),
+                    'posts' => $count_posts->publish,
+                    'pages' => $count_pages->publish,
+                    'comments' => $comments_count->total_comments,
+                    'approved' => $comments_count->approved,
+                    'spam' => $comments_count->spam,
+                    'pingbacks' => $wpdb->get_var("SELECT COUNT(comment_ID) FROM $wpdb->comments WHERE comment_type = 'pingback'"),
+                    'post_conversion' => ($count_posts->publish > 0 && $posts_with_comments > 0) ? number_format(($posts_with_comments / $count_posts->publish) * 100, 0, '.', '') : 0,
+                    'theme_version' => $plugin_data['Version'],
+                    'theme_name' => $theme_name,
+                    'site_name' => str_replace(' ', '', get_bloginfo('name')),
+                    'plugins' => count(get_option('active_plugins')),
+                    'plugin' => urlencode($plugin_name),
+                    'wpversion' => get_bloginfo('version'),
+                );
+
+                foreach ($data as $k => $v) {
+                    $url .= $k . '/' . $v . '/';
+                }
+                wp_remote_get($url);
+                set_transient('presstrends_cache_data', $data, 60 * 60 * 24);
+            }
         }
 
     }

@@ -1,10 +1,10 @@
 === PrintPress ===
 Contributors: omarabid
 Donate link: http://omarabid.com/
-Tags: print, printer, wp-print, print plugin, widget
+Tags: print, printer, wp-print, print plugin, printable, printing, widget, widgets, plugin, post, images, page, article, cms, admin, font, google, custom, chrome, theme, type, typography, shortcode, shortcodes, css, note, notes
 Requires at least: 3.5.0
 Tested up to: 3.5.1
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -46,6 +46,9 @@ if you want to contribute or open a support ticket.
 3. Open 'index.html' in the 'help' folder. Read the documentation to learn how to use the plugin.
 
 == Changelog ==
+
+= 1.1.0 =
+* Added Usage Code
 
 = 1.0.0 =
 * Initial Release
